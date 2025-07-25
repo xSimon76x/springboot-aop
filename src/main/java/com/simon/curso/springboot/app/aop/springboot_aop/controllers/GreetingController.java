@@ -2,8 +2,11 @@ package com.simon.curso.springboot.app.aop.springboot_aop.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simon.curso.springboot.app.aop.springboot_aop.services.GreetingService;
+
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GreetingController {
 
 
+    @Autowired
+    GreetingService greetingService;
+
     @GetMapping("/saludar")
     public ResponseEntity<?> greting() {
-        return ResponseEntity.ok(Collections.singletonMap("greting", null));
+        System.out.println("Entrando al controlador saludar");
+        return ResponseEntity.ok(Collections.singletonMap("greting", greetingService.sayHello("Simon", "Hola que tal!")));
     }
     
 
