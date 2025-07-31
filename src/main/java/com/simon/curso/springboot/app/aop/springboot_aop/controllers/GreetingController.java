@@ -21,8 +21,14 @@ public class GreetingController {
 
     @GetMapping("/saludar")
     public ResponseEntity<?> greting() {
-        System.out.println("Entrando al controlador saludar");
+        System.out.println("=====Entrando al controlador saludar");
         return ResponseEntity.ok(Collections.singletonMap("greting", greetingService.sayHello("Simon", "Hola que tal!")));
+    }
+
+    @GetMapping("/saludar-error")
+    public ResponseEntity<?> gretingError() {
+        System.out.println("=====Entrando al controlador saludar");
+        return ResponseEntity.ok(Collections.singletonMap("greting", greetingService.sayHelloError("Simon", "Hola que tal!")));
     }
     
 
