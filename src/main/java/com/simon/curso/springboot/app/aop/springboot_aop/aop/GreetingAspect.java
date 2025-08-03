@@ -1,4 +1,4 @@
-package com.simon.curso.springboot.app.aop.springboot_aop;
+package com.simon.curso.springboot.app.aop.springboot_aop.aop;
 
 import java.util.Arrays;
 
@@ -12,11 +12,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-
-@Aspect
+@Order(2)
 @Component
+@Aspect
 public class GreetingAspect {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -29,21 +30,21 @@ public class GreetingAspect {
     // @Before("execution(String com.simon.curso.springboot.app.aop.springboot_aop.services.*.*(..))")
     //? Aqui es para cualquier metodo que este dentro de las clases de todos los package (muy global)
     // @Before("execution(* *.*(..))")
-    @Before("execution(String com.simon.curso.springboot.app.aop.springboot_aop.services.GreetingService.sayHello(..))")
+    @Before("GreetingServicePointCuts.greetingLoggerPointCut()")
     public void loggerBeforeJoin(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("=====Antes: " + method + " con los argumentos " + args);
     }
 
-    @AfterReturning("execution(String com.simon.curso.springboot.app.aop.springboot_aop.services.GreetingService.sayHello(..))")
+    @AfterReturning("GreetingServicePointCuts.greetingLoggerPointCut()")
     public void loggerAfterReturningJoin(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("=====Despues de retornar: " + method + " con los argumentos " + args);
     }
 
-    @After("execution(String com.simon.curso.springboot.app.aop.springboot_aop.services.GreetingService.sayHello(..))")
+    @After("GreetingServicePointCuts.greetingLoggerPointCut()")
     public void loggerAfterJoin(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
